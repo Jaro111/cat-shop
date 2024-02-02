@@ -2,9 +2,6 @@ import React from "react";
 import App from "../App";
 
 
-
-
-
 function Checkout(props) {
 
 

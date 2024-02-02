@@ -71,7 +71,9 @@ export default function CatCard({ cat, addCat, catPrice}) {
             <p>
               <MdOutlineMailOutline /> {randomCat[5]}
             </p>
+            {/* Cat price which will be taken from price array */}
             <p>{catPrice}</p>
+            {/* Add cat function which wullbe called in app.jsx */}
             <button onClick={addCat} className="btnInfo">
               Add To Cart
             </button>

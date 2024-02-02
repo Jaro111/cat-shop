@@ -2,28 +2,25 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import CatCard from "./components/CatCard";
 import { faker, fakerEN_GB } from "@faker-js/faker";
-// import { TheCatAPI } from "@thatapicompany/thecatapi";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
-// import About from "./pages/About";
-// import Contact from "./pages/Contact";
 import Checkout from "./pages/CheckoutPage"
 import Home from "./pages/Home"
 
-import { random } from "mathjs";
-
 function App() {
-
+  // 
   const [cats, setCats] = useState([]);
+  // Randomprices array
   const [randomPrices, setRandomprices] = useState([])
+  
   const [data, setData] = useState([]);
   const [basket, setBasket] = useState([]);
   const [errorMsg, setErrorMsg] = useState("");
   const [price, setPrice] = useState(0)
   const [priceArray, setPriceArray] = useState([])
   const [total, setTotal] = useState(0)
-  const limit = 40
+  
 
-
+// Funcction taken from cardCat to generate random price
   const createRandomCatDetails = () => {
     const randPrice = faker.finance.amount({
       min: 100,
@@ -33,9 +30,10 @@ function App() {
     });
     return randPrice
   }
-  const randomCatPrice = createRandomCatDetails();
+  // const randomCatPrice = createRandomCatDetails();
 
-
+// API where You can set limit of cats on the website
+  const limit = 40
   const getCats = async () => {
     try {
       const response = await fetch(`https://api.thecatapi.com/v1/images/search?limit=${limit}&api_key=live_1j9u5LnTVpxTZI7rpqtemC1sln7kdJe2A4gfpnora6RrGgNjcRTfptX4rqnpPREA`);
@@ -46,7 +44,7 @@ function App() {
 
       const data = await response.json();
 
-      // console.log(data);
+
       setData(data)
 
 
@@ -56,51 +54,49 @@ function App() {
   };
 
 
-  // var item = {name:"bull", text: "sour"};
+// Generator  which generates as many prices as the limit of cats i set and leter assign them to the cats
+const genRandomPrices = () => {
+  let priceArray = []
+  for (let i=0; i < limit; i ++)
 
-  // a.findIndex(x => x.name == item.name) == -1 ? a.push(item) : console.log("object already exists")
+  { let randomNumber = createRandomCatDetails()
 
+    priceArray.push(randomNumber)
+  }
+  return priceArray
+}
+
+
+
+
+// Function adding to the basket items and calculating the total price
     const addToBasket = (item, index) => {
 
-    // basket.findIndex(x => x.catImage === item)  === -1? basket.push({catImage: item,price: randomPrices[index]}): console.log("object already exists")
     if (basket.includes(item)) {
       console.log("item already in basket")
     } else {
       basket.push(item)
+      // Price is taken from random price array 
       let tempPrice = Number(randomPrices[index].replace("£", ""))
-      let totalPrice = Number(Math.round(total))
+      let totalPrice = Number(total)
       totalPrice += tempPrice
+      // Crearing seperate price array for cats which are added to the prices
       let tempPriceArray = [...priceArray, tempPrice]
+
       setPriceArray(tempPriceArray)
+
       console.log(priceArray)
       setPrice(tempPrice)
       setTotal(totalPrice)
     }
     
 
-    // const removeFromBasket = (index) => {
-    //   let newBasket = []
-    //   newBasket = [...basket];
-    //   newBasket.splice(index, 1);
-    //   setBasket(newBasket);
-    //   console.log(basket)
-    // };
     
       
   }
-
-    const genRandomPrices = () => {
-      let priceArray = []
-      for (let i=0; i < limit; i ++)
-
-      { let randomNumber = createRandomCatDetails()
-
-        priceArray.push(randomNumber)
-      }
-      return priceArray
-    }
-
-  
+    
+  // Price update which will reduce the prices when we will remove items from the basket by clicking button
+  // Ttis function will be called in removeFromBasket function. Parameter is the index of catc in price Array
     const priceUpdate = (index) => {
       let tempTotal = total
       tempTotal -= priceArray[index]
@@ -110,7 +106,8 @@ function App() {
       setPriceArray(newArray);
       
     }
-
+    // Function to remove items from the backet by clicking button.
+    // Parameter is the index of the cats in the basket
     const removeFromBasket = (index) => {
       let newBasket = []
       newBasket = [...basket];
@@ -120,21 +117,6 @@ function App() {
 
     };
 
-  // const generateFakeData = () => {
-  //   return {
-  //     price: faker.commerce.price(),
-  //     location: faker.address.city(),
-  //     // keep adding more informaiton from library if needed.
-  //   };
-  // };
-
-  // const calculateTotalPrice = () => {
-  //   return basket.reduce((total, item) => total + item.price, 0);
-  // };
-
-  // const toggleBasket = () => {
-  //   setIsBasketOpen(!isBasketOpen);
-  // };
 
   useEffect(() => {
     console.log("comp run")
@@ -157,7 +139,7 @@ function App() {
                 </nav>
                 
                 <Routes>
-                
+                    {/* Checkout */}
                     <Route exact path='/checkoutPage' element={<Checkout 
                     basketItems = {basket.length}
                     catBasketPrice = {priceArray}
@@ -173,10 +155,10 @@ function App() {
           </BrowserRouter> 
 
       <div className="app">
-          <p className="total">Total: {Math.round(total)}$</p>
+          <p className="total">Total: {total < 0? total.toFixed(2) * -1: total.toFixed(2)}&nbsp;£</p>
           <p className="total">Basket: {basket.length}</p>
 
-          {/* <Search search={handleSearch} /> */}
+     
           <div className="catCont">
               {cats.length > 0 &&
                   cats.map((item, index) => {        
