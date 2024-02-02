@@ -21,7 +21,7 @@ function App() {
   const [price, setPrice] = useState(0)
   const [priceArray, setPriceArray] = useState([])
   const [total, setTotal] = useState(0)
-  const limit = 20
+  const limit = 40
 
 
   const createRandomCatDetails = () => {
@@ -68,10 +68,11 @@ function App() {
     } else {
       basket.push(item)
       let tempPrice = Number(randomPrices[index].replace("£", ""))
-      let totalPrice = Number(total.toFixed(2))
+      let totalPrice = Number(Math.round(total))
       totalPrice += tempPrice
       let tempPriceArray = [...priceArray, tempPrice]
       setPriceArray(tempPriceArray)
+      console.log(priceArray)
       setPrice(tempPrice)
       setTotal(totalPrice)
     }
@@ -159,7 +160,7 @@ function App() {
                 
                     <Route exact path='/checkoutPage' element={<Checkout 
                     basketItems = {basket.length}
-                    catBasketPrice = {randomPrices}
+                    catBasketPrice = {priceArray}
                     basketData = {basket} 
                     removeCat = {removeFromBasket}
                     
@@ -172,7 +173,7 @@ function App() {
           </BrowserRouter> 
 
       <div className="app">
-          <p className="total">Total: {total.toFixed(2)}$</p>
+          <p className="total">Total: {Math.round(total)}$</p>
           <p className="total">Basket: {basket.length}</p>
 
           {/* <Search search={handleSearch} /> */}
@@ -197,74 +198,3 @@ function App() {
 }
 
 export default App;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import React, { useState, useEffect } from 'react';
-// import './App.scss';
-// import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-// import Header from './components/Header';
-// import Footer from './components/Footer';
-// import Home from './pages/Home';
-// import ContactUs from './pages/ContactUs';
-// import ProductDetails from './pages/ProductDetails';
-// import Basket from './components/Basket';
-// import { fetchCatData } from './api/catApi';
-
-
-//   useEffect(() => {
-//     fetchCatData().then((data) => setCats(data));
-//   }, []);
-
-//   const addToBasket = (cat) => {
-//     setBasket([...basket, cat]);
-//   };
-
-//   const removeFromBasket = (index) => {
-//     const newBasket = [...basket];
-//     newBasket.splice(index, 1);
-//     setBasket(newBasket);
-//   };
-
-//   const calculateTotalPrice = () => {
-//     return basket.reduce((total, cat) => total + cat.price, 0);
-//   };
-
-//   return (
-//     <Router>
-//       <div className="App">
-//         <Header />
-//         <Switch>
-//           <Route path="/" exact>
-//             <Home cats={cats} addToBasket={addToBasket} />
-//           </Route>
-//           <Route path="/product/:id">
-//             <ProductDetails cats={cats} addToBasket={addToBasket} />
-//           </Route>
-//           <Route path="/contact-us">
-//             <ContactUs />
-//           </Route>
-//         </Switch>
-//         <Basket basket={basket} removeFromBasket={removeFromBasket} calculateTotalPrice={calculateTotalPrice} />
-//         <Footer />
-//       </div>
-//     </Router>
-//   );
-// }
-
-// export default App;

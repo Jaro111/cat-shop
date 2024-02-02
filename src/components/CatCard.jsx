@@ -17,12 +17,7 @@ export default function CatCard({ cat, addCat, catPrice}) {
     const randLoc = fakerEN_GB.location.county();
     const randEmail = fakerEN_GB.internet.email();
     const randPhone = fakerEN_GB.phone.number();
-    // const randPrice = faker.finance.amount({
-    //   min: 100,
-    //   max: 1000,
-    //   dec: 2,
-    //   symbol: "£",
-    // });
+
 
     return [
       randCatName,
@@ -31,7 +26,7 @@ export default function CatCard({ cat, addCat, catPrice}) {
       randLoc,
       randPhone,
       randEmail,
-      // randPrice,
+
     ];
   };
 
@@ -48,14 +43,7 @@ export default function CatCard({ cat, addCat, catPrice}) {
     }
     console.log(basket)
     }
-  //   console.log(randomCat);
 
-  // const totalCount = (itemPrice) => {
-  //   setPrice(itemPrice)
-  //   setTotal(total + price)
-
-    // open modal/side panel?
-  // };
 
 
    
