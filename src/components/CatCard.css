@@ -1,0 +1,73 @@
+
+
+.catCardCont {
+    /* background-color: darkorange; */
+    width: 250px;
+    height: 250px;
+    margin: 0px;
+    padding: 0px;
+    perspective: 1000px;
+}
+
+.catCardContInner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+  }
+
+  .catCardCont:hover .catCardContInner {
+    transform: rotateY(180deg);
+  }
+
+  .catCardFront, .catCardBack {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden; /* Safari */
+    backface-visibility: hidden;
+  }
+
+  .catCardBack {
+    display: flex;
+    flex-direction: column;
+    background-color: black;
+    color: white;
+    border-radius: 10px;
+    transform: rotateY(180deg);
+  }
+
+
+
+.catName {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.762);
+    color: white;
+    width: 250px;
+    margin: 0px;
+    padding: 0px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+
+
+
+}
+
+.catImg {
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 10px;
+
+}
+
+.btnInfo {
+    background-color: darkgray;
+    margin-top: auto;
+    height: 30px;
+    border: 0px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px; 
+}
