@@ -6,9 +6,15 @@ import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import Checkout from "./pages/CheckoutPage"
 import Home from "./pages/Home"
 
+
+// 2 people were doing logic and functionality. I've done backup with my working code. I've pulled the code from the team colab repository and all my data was overwrited. 
+// So I've created new repo on my account with my version of the my logic which i've backed up before. 
+// I've provided the repo for my team mates
+
+
 function App() {
   // 
-  const [cats, setCats] = useState([]);
+  const [cats, setCats] = useState([]);be
   // Randomprices array
   const [randomPrices, setRandomprices] = useState([])
   
