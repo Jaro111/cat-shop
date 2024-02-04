@@ -14,7 +14,7 @@ import Home from "./pages/Home"
 
 function App() {
   // 
-  const [cats, setCats] = useState([]);be
+  const [cats, setCats] = useState([]);
   // Randomprices array
   const [randomPrices, setRandomprices] = useState([])
   
